@@ -29,7 +29,6 @@ function tile:draw()
 end
 
 function tile:drawTile(_index)
-  --love.graphics.print("+", level.objects.tiles[_index].sx, level.objects.tiles[_index].sy)
   love.graphics.draw(sprite_sheet, level.objects.tiles[_index].sprite, level.objects.tiles[_index].sx, level.objects.tiles[_index].sy)
   if level.objects.tiles[_index].detail_sprite ~= nil then
     love.graphics.draw(sprite_sheet, level.objects.tiles[_index].detail_sprite, level.objects.tiles[_index].sx, level.objects.tiles[_index].sy)

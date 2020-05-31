@@ -66,16 +66,9 @@ end
 
 function piece:update(dt)
   for i = 1, #level.objects.pieces do
-    --if math.abs(level.objects.pieces[i].y*sprites_1.height-sprites_1.height-level.objects.pieces[i].sy*sprites_1.height-sprites_1.height) < 5000 then
-      level.objects.pieces[i].sx = (level.objects.pieces[i].x*sprites_1.width-sprites_1.width)+(level.objects.pieces[i].sx-(level.objects.pieces[i].x*sprites_1.width-sprites_1.width))/(1+dt*60)
-    --else
-      --level.objects.pieces[i].sx = level.objects.pieces[i].x*sprites_1.width-sprites_1.width
-    --end
-    --if math.abs(level.objects.pieces[i].y*sprites_1.height-sprites_1.height-level.objects.pieces[i].sy*sprites_1.height-sprites_1.height) < 5000 then
-      level.objects.pieces[i].sy = (level.objects.pieces[i].y*sprites_1.height-sprites_1.height)+(level.objects.pieces[i].sy-(level.objects.pieces[i].y*sprites_1.height-sprites_1.height))/(1+dt*60)
-    --else
-      --level.objects.pieces[i].sy = level.objects.pieces[i].y*sprites_1.height-sprites_1.height
-    --end
+    level.objects.pieces[i].sx = (level.objects.pieces[i].x*sprites_1.width-sprites_1.width)+(level.objects.pieces[i].sx-(level.objects.pieces[i].x*sprites_1.width-sprites_1.width))/(1+dt*60)
+    level.objects.pieces[i].sy = (level.objects.pieces[i].y*sprites_1.height-sprites_1.height)+(level.objects.pieces[i].sy-(level.objects.pieces[i].y*sprites_1.height-sprites_1.height))/(1+dt*60)
+
     level.objects.pieces[i].sx2 = math.floor(level.objects.pieces[i].sx + board.x + .5)
     level.objects.pieces[i].sy2 = math.floor(level.objects.pieces[i].sy + board.y + .5)
   end
@@ -645,7 +638,6 @@ function piece:mouseClick(x, y)
           found_piece = nil
         end
       end
-      --table.remove(level.objects.tiles, i)
       if level.objects.selectedPiece == nil then
         if found_piece ~= nil then
           level.objects.selectedPiece = found_piece
@@ -655,8 +647,9 @@ function piece:mouseClick(x, y)
         if piece:isPossibleMove(level.objects.selectedPiece, level.objects.tiles[i].x, level.objects.tiles[i].y) then
           piece:move(level.objects.selectedPiece, level.objects.tiles[i])
           if level.objects.tiles[i].is_goal then
+            --load de next level
             inventory:update()
-            board.color = 2--love.math.random(sprite_sheet:getHeight()/22-4)+1
+            board.color = 2
             level:new(level.w, level.h)
             current_state = "player_turn"
           elseif #level.objects.enemyPieces > 0 then
