@@ -1,12 +1,3 @@
-
-
---TO DO:
---Program the GameStateMachine (done)
---Program the enemy AI: (done-ish)
---https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
---https://github.com/soumith/sunfish.lua/blob/master/sunfish.lua
---Program the basic game loop
-
 require("resources/scripts/canvas")
 require("resources/scripts/fonts")
 require("resources/scripts/spriteSheet")
@@ -17,18 +8,17 @@ require("resources/scripts/wall")
 require("resources/scripts/piece")
 require("resources/scripts/FSM")
 require("resources/scripts/inventory")
-Moonshine = require("libraries/moonshine") --https://github.com/vrld/moonshine
+Moonshine = require("libraries/moonshine")
 --Rogue-like map generation
-ROT = require ("libraries/rotLove/rot") --http://paulofmandown.github.io/rotLove
+ROT = require ("libraries/rotLove/rot")
 --Path Finding
-Grid = require ("libraries/jumper.grid") --https://github.com/Yonaba/Jumper
+Grid = require ("libraries/jumper.grid")
 Pathfinder = require ("libraries/jumper.pathfinder")
 
 debug_text = ""
 
 function love.load()
   --Screen/Canvas Settings
-  --love.window.setMode(0, 0, {fullscreen = false, vsync = false})
   fullscreen = true
   scale = 2
   love.window.setMode(0, 0, {fullscreen = true, vsync = false})
@@ -52,11 +42,6 @@ function love.load()
   inventory:init()
 
   level:new(24, 16) --40, 22
-  --level:new(40, 22)
-
-  --effect = Moonshine(Moonshine.effects.crt)
-                    --.chain(Moonshine.effects.vignette)
-  --effect.crt.distortionFactor = {1.03, 1.0325}
 end
 
 function love.update(dt)
@@ -66,16 +51,12 @@ end
 function love.draw()
   love.graphics.setFont(font["mono16"])
   love.graphics.setCanvas(canvas) --Start drawing on canvas
-  --love.graphics.setColor(0, 0, 0, 1)
   game_states[current_state].draw()
   love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 10, 10)
   love.graphics.print(debug_text, 10, 20)
   love.graphics.setCanvas() --Stop drawing on canvas
-  --love.graphics.setColor(1, 1, 1, 1)
-  --Shader Effects
-  --effect(function()
-    love.graphics.draw(canvas, draw_offset_horizontal, draw_offset_vertical, 0, draw_scale, draw_scale)
-  --end)
+
+  love.graphics.draw(canvas, draw_offset_horizontal, draw_offset_vertical, 0, draw_scale, draw_scale)
 end
 
 function love.keypressed(key)
