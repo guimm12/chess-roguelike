@@ -28,8 +28,6 @@ function level:new(w, h)
 
   --Roguelike map generator settings
   level.rogue_map = ROT.Map.Rogue(w, h, {cellWidth = math.floor(w/8), cellHeight = math.floor(h/4), roomWidth = {2,4}, roomHeight = {2,4}})
-  --level.rogue_map = ROT.Map.Rogue(w, h, {cellWidth = math.floor(w/16), cellHeight = math.floor(h/8), roomWidth = {4,8}, roomHeight = {4,8}})
-  --level.rogue_map = ROT.Map.Rogue(w, h, {cellWidth = math.floor(w/32), cellHeight = math.floor(h/16), roomWidth = {8,16}, roomHeight = {8,16}})
 
   level.tileData = level:generateTileData(level.tileData, w, h)
 
@@ -66,10 +64,6 @@ function level:generateTileData(tileData, w, h)
       end
     end
 
-    for i = 1, 5 do
-      --level:smooth(tileData)
-    end
-
     --Path finding
     local grid = Grid(tileData)
     local myFinder = Pathfinder(grid, 'JPS', 1)
@@ -100,24 +94,6 @@ function level:generateTileData(tileData, w, h)
   end
 
   return tileData
-end
-
-function level:smooth(tileData)
-  for x = 2, #tileData-1 do
-    for y = 2, #tileData[1]-1 do
-      if level:getSurroundingWallCount(tileData, x, y) > 4 then
-        tileData[x][y] = 1
-      elseif level:getSurroundingWallCount(tileData, x, y) < 4 then
-        tileData[x][y] = 0
-      end
-    end
-  end
-end
-
-function level:getSurroundingWallCount(tileData, x, y)
-  return  tileData[x+1][y] + tileData[x+1][y+1] + tileData[x][y+1] +
-          tileData[x-1][y] + tileData[x-1][y-1] + tileData[x][y-1] +
-          tileData[x+1][y-1] + tileData[x-1][y+1]
 end
 
 function level:spawnTiles(tileData)

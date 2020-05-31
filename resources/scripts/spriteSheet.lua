@@ -15,7 +15,7 @@ function loadSpriteSheet()
 
   for y = 0, (sprite_sheet:getHeight()/22)-1  do
     sprites_1[y+1] = {}
-    bg_color_r[y+1], bg_color_g[y+1], bg_color_b[y+1] = sprite_sheet_image_data:getPixel(sprites_1.width*18, sprites_1.height*y) -- 1, 1, 1
+    bg_color_r[y+1], bg_color_g[y+1], bg_color_b[y+1] = sprite_sheet_image_data:getPixel(sprites_1.width*18, sprites_1.height*y)
     for x = 0, (sprite_sheet:getWidth()/22)-1 do
       sprites_1[y+1][x+1] = love.graphics.newQuad(x*sprites_1.width, y*sprites_1.height, sprites_1.width, sprites_1.height, sprite_sheet:getDimensions())
     end

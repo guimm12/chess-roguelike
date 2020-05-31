@@ -115,12 +115,9 @@ game_states["enemy_turn"].update = function(dt)
     end
 
     --removing all moves with less score than the best(s) one(s)
-    --debug_text = ""
     for i = #scored_moves, 1, -1 do
       if scored_moves[i].value < max_score_move.value then
         table.remove(scored_moves, i)
-      else
-        --debug_text = debug_text.."type: "..scored_moves[i].piece.type..", score: "..scored_moves[i].value.."\n"
       end
     end
 
